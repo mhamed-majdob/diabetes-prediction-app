@@ -4,12 +4,15 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.metrics import confusion_matrix
+
 
 # Load dataset
 df = pd.read_csv("data/diabetes.csv")
+
 
 # Replace zeros with NaN in specific columns
 columns_with_zeros = ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']
@@ -65,26 +68,13 @@ if st.button("Predict"):
         st.error(f"Prediction: Diabetic (Probability: {prob:.2f})")
     else:
         st.success(f"Prediction: Not Diabetic (Probability: {prob:.2f})")
-
-# ---- Dynamic Visualization Section ----
+# Visualization Section
 st.header("Model Performance Visualizations")
 
-# Confusion matrix
+# Show confusion matrix
 st.subheader("Confusion Matrix")
-cm = confusion_matrix(y_test, y_pred)
-labels = ['Not Diabetic', 'Diabetic']
-fig_cm, ax_cm = plt.subplots()
-sns.heatmap(cm, annot=True, fmt='d', cmap='viridis', xticklabels=labels, yticklabels=labels, ax=ax_cm)
-ax_cm.set_xlabel('Predicted label')
-ax_cm.set_ylabel('True label')
-ax_cm.set_title('Confusion Matrix - Diabetes Prediction')
-st.pyplot(fig_cm)
+st.image("plots/confusion_matrix_diabetes.png", caption="Confusion Matrix", use_container_width=True)
 
-# Feature importance
+# Show feature importance
 st.subheader("Feature Importance")
-importances = model.feature_importances_
-feature_names = X.columns
-fig_fi, ax_fi = plt.subplots()
-sns.barplot(x=importances, y=feature_names, ax=ax_fi, color='orange')
-ax_fi.set_title('Feature Importance - Random Forest')
-st.pyplot(fig_fi)
+st.image("plots/feature_importance_diabetes.png", caption="Top Features Influencing Prediction", use_container_width=True)
