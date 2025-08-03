@@ -64,3 +64,13 @@ if st.button("Predict"):
         st.error(f"Prediction: Diabetic (Probability: {prob:.2f})")
     else:
         st.success(f"Prediction: Not Diabetic (Probability: {prob:.2f})")
+# Visualization Section
+st.header("Model Performance Visualizations")
+
+# Show confusion matrix
+st.subheader("Confusion Matrix")
+st.image("plots/confusion_matrix_diabetes.png", caption="Confusion Matrix", use_container_width=True)
+
+# Show feature importance
+st.subheader("Feature Importance")
+st.image("plots/feature_importance_diabetes.png", caption="Top Features Influencing Prediction", use_container_width=True)
